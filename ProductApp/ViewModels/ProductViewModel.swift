@@ -36,9 +36,10 @@ class ProductViewModel: ObservableObject {
     @MainActor
     func loadProducts() async {
         guard let context else { return }
+        let dataManager = ProductDataManager(context: context)
 
         isLoading = true
-        let service = ProductService(context: context)
+        let service = ProductService(dataManager: dataManager)
 
         do {
             let loadedProducts: [Product]

@@ -23,12 +23,16 @@ struct AsyncImageView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else {
-                Image("placeholder") // <-- Add this image to Assets.xcassets
+                Image(systemName: "photo")
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .task {
-                        await loadImage()
-                    }
+                    .scaledToFit()
+                    .foregroundColor(.gray)
+                    .opacity(0.5)
+            }
+        }
+        .task {
+            if image == nil {
+                await loadImage()
             }
         }
     }
